@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; style-src 'self' 'unsafe-inline';" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Serato Library Sync</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ── Header ── -->
+  <header>
+    <div class="logo">♫</div>
+    <div>
+      <h1>Serato Library Sync</h1>
+      <p>Import your music folder into Serato DJ as crates</p>
+    </div>
+  </header>
+
+  <!-- ── Paths card ── -->
+  <div class="card">
+
+    <div class="field">
+      <label for="music-path">Music Library Path</label>
+      <div class="path-row">
+        <input type="text" id="music-path" placeholder="/Volumes/Data/Music" />
+        <button class="btn-browse" id="browse-music">Browse…</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="serato-path">Serato Library Path</label>
+      <div class="path-row">
+        <input type="text" id="serato-path" placeholder="/Volumes/Data/_Serato_" />
+        <button class="btn-browse" id="browse-serato">Browse…</button>
+      </div>
+    </div>
+
+    <label class="checkbox-row">
+      <input type="checkbox" id="clear-before-sync" checked />
+      <span>
+        Clear existing crates before sync
+        <small>Deletes all .crate files in Crates/ and Subcrates/ and removes database V2</small>
+      </span>
+    </label>
+
+    <label class="checkbox-row">
+      <input type="checkbox" id="include-parent-crate" />
+      <span>
+        Include parent crate
+        <small>Creates a crate for the selected folder itself, with its subfolders as subcrates</small>
+      </span>
+    </label>
+
+  </div>
+
+  <!-- ── Action ── -->
+  <button id="btn-sync">Start Sync</button>
+
+  <!-- ── Log card ── -->
+  <div class="card" style="flex:1; min-height:0;">
+    <div class="log-header">
+      <h2>Log</h2>
+      <button id="btn-clear-log">Clear</button>
+    </div>
+    <div id="log"></div>
+  </div>
+
+  <!-- ── Status bar ── -->
+  <div id="status-bar">Ready</div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "name": "serato-library-fs-port",
+  "version": "1.0.0",
+  "description": "Serato DJ library sync tool — Node.js/Electron port of itch-sync",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^28.0.0"
+  },
+  "dependencies": {
+    "music-metadata": "^10.9.1"
+  }
+}
