@@ -171,8 +171,11 @@ label {
 }
 
 .checkbox-row span {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--text);
+  text-transform: none; /* the uppercase label style is for field labels only */
+  letter-spacing: normal;
+  font-weight: normal;
 }
 
 .checkbox-row small {
