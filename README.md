@@ -11,6 +11,17 @@ Java tool *itch-sync*, updated to work with **Serato DJ Pro 5**.
 ![Electron](https://img.shields.io/badge/electron-28-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
+> [!CAUTION]
+> **Use at your own risk.** This app writes directly into your Serato library files.
+>
+> - **Back up your `_Serato_` folder before using it** (see [Backing up](#backing-up-your-serato-library)).
+> - The app has **not been tested on every macOS version**. It was tested on macOS 15
+>   (Intel).
+> - The app has **not been tested on every Serato DJ version**. It was tested with
+>   Serato DJ Pro 3.3 and 5.0.
+>
+> The software is provided "as is", without warranty of any kind (see [License](#license)).
+
 ---
 
 ## Contents
@@ -20,6 +31,7 @@ Java tool *itch-sync*, updated to work with **Serato DJ Pro 5**.
 - [Requirements](#requirements)
 - [Running from source](#running-from-source)
 - [Building a standalone app](#building-a-standalone-app)
+- [Backing up your Serato library](#backing-up-your-serato-library)
 - [Using the app](#using-the-app)
 - [How it works](#how-it-works)
 - [Project structure](#project-structure)
@@ -90,6 +102,9 @@ Each command creates its own app, e.g.
 `dist/Serato Library Sync-darwin-x64/Serato Library Sync.app` and
 `dist/Serato Library Sync-darwin-arm64/Serato Library Sync.app`.
 
+The build script (`scripts/build-mac.mjs`) also removes Electron's unused UI translations
+(everything except English), which brings the app from ~229 MB down to ~196 MB.
+
 **Windows** (run on a Windows machine)
 
 ```bash
@@ -106,22 +121,39 @@ and `music-metadata` are bundled (in `app.asar`).
 > right-click the app → **Open**, or run
 > `xattr -dr com.apple.quarantine "/Applications/Serato Library Sync.app"`.
 
+## Backing up your Serato library
+
+> [!WARNING]
+> Always make a backup before syncing. If something goes wrong, restoring the backup is the
+> only way to get your crates, cue points and library back.
+
+1. Quit Serato DJ Pro.
+2. Copy the `_Serato_` folder somewhere safe (e.g. as `_Serato_ backup 2026-10-30`):
+   - internal drive: `~/Music/_Serato_`
+   - external drives: `/Volumes/<drive>/_Serato_` (one per drive that holds music)
+3. **Serato DJ Pro 4 / 5 only:** also copy the folder
+   `~/Library/Application Support/Serato/Library`, where these versions keep their library
+   database. (In Finder: **Go → Go to Folder…** and paste the path.)
+
+To restore, quit Serato and copy the backed-up folders back over the originals.
+
 ## Using the app
 
-1. **Quit Serato DJ Pro.** The app will not sync while it is running.
-2. **Music Library Path** — the folder whose subfolders should become crates,
+1. **Back up your Serato library** (see above).
+2. **Quit Serato DJ Pro.** The app will not sync while it is running.
+3. **Music Library Path** — the folder whose subfolders should become crates,
    e.g. `~/Music/Music 2026`.
-3. **Serato Library Path** — the `_Serato_` folder of the drive the music is on:
+4. **Serato Library Path** — the `_Serato_` folder of the drive the music is on:
    - internal drive: `~/Music/_Serato_`
    - external drive: `/Volumes/<drive>/_Serato_`
-4. Choose the options:
+5. Choose the options:
    - **Clear existing crates before sync** — deletes all `.crate` files in `Crates/` and
      `Subcrates/` and removes `database V2` before writing. *On Serato 5, leave this off
      unless you really want to start from scratch.* Serato rebuilds `database V2` from its
      own library, but it is safer not to delete it.
    - **Include parent crate** — see the example below.
-5. Click **Start Sync** and check the log.
-6. Start Serato DJ Pro. The crates appear under the Serato library.
+6. Click **Start Sync** and check the log.
+7. Start Serato DJ Pro. The crates appear under the Serato library.
 
 ### Example
 

@@ -5,8 +5,8 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "build:mac-x64": "electron-packager . \"Serato Library Sync\" --platform=darwin --arch=x64 --icon=assets/icon.icns --out=dist --overwrite --ignore=\"^/\\.claude\" --ignore=\"^/dist\"",
-    "build:mac-arm64": "electron-packager . \"Serato Library Sync\" --platform=darwin --arch=arm64 --icon=assets/icon.icns --out=dist --overwrite --ignore=\"^/\\.claude\" --ignore=\"^/dist\""
+    "build:mac-x64": "node scripts/build-mac.mjs x64",
+    "build:mac-arm64": "node scripts/build-mac.mjs arm64"
   },
   "devDependencies": {
     "@electron/packager": "^20.3.0",
