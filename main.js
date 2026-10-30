@@ -34,13 +34,20 @@ function createWindow() {
       nodeIntegration: false,
     },
     title: 'Serato Library Sync',
+    icon: path.join(__dirname, 'assets', 'icon.png'), // Windows / Linux window icon
     backgroundColor: '#12121f',
   });
 
   win.loadFile(path.join(__dirname, 'renderer', 'index.html'));
 }
 
-app.whenReady().then(createWindow);
+app.whenReady().then(() => {
+  // Packaged macOS builds take the icon from assets/icon.icns; this covers `npm start`
+  if (process.platform === 'darwin' && !app.isPackaged) {
+    app.dock.setIcon(path.join(__dirname, 'assets', 'icon.png'));
+  }
+  createWindow();
+});
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit();

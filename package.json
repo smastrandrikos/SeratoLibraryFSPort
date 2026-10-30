@@ -4,9 +4,12 @@
   "description": "Serato DJ library sync tool — Node.js/Electron port of itch-sync",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build:mac-x64": "electron-packager . \"Serato Library Sync\" --platform=darwin --arch=x64 --icon=assets/icon.icns --out=dist --overwrite --ignore=\"^/\\.claude\" --ignore=\"^/dist\"",
+    "build:mac-arm64": "electron-packager . \"Serato Library Sync\" --platform=darwin --arch=arm64 --icon=assets/icon.icns --out=dist --overwrite --ignore=\"^/\\.claude\" --ignore=\"^/dist\""
   },
   "devDependencies": {
+    "@electron/packager": "^20.3.0",
     "electron": "^28.0.0"
   },
   "dependencies": {

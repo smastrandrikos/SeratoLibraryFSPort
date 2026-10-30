@@ -76,28 +76,28 @@ npm start
 
 ## Building a standalone app
 
-The app is packaged with [@electron/packager](https://github.com/electron/packager), run
-through `npx`, so nothing extra needs to be installed. Run these from the project folder
-after `npm install`.
+The app is packaged with [@electron/packager](https://github.com/electron/packager)
+(installed as a dev dependency). Run these from the project folder after `npm install`.
 
-**macOS (Intel)**
+**macOS**
 
 ```bash
-npx @electron/packager . "Serato Library Sync" --platform=darwin --arch=x64 --out=dist --overwrite --ignore="^/\.claude"
+npm run build:mac-x64     # Intel Macs
+npm run build:mac-arm64   # Apple Silicon Macs (M1 and later)
 ```
 
-**macOS (Apple Silicon)** — use `--arch=arm64`, or `--arch=universal` for a single app that
-runs on both.
+Each command creates its own app, e.g.
+`dist/Serato Library Sync-darwin-x64/Serato Library Sync.app` and
+`dist/Serato Library Sync-darwin-arm64/Serato Library Sync.app`.
 
 **Windows** (run on a Windows machine)
 
 ```bash
-npx @electron/packager . "Serato Library Sync" --platform=win32 --arch=x64 --out=dist --overwrite --ignore="^/\.claude"
+npx @electron/packager . "Serato Library Sync" --platform=win32 --arch=x64 --out=dist --overwrite --ignore="^/\.claude" --ignore="^/dist"
 ```
 
-The result is written to `dist/`, for example
-`dist/Serato Library Sync-darwin-x64/Serato Library Sync.app`. Copy the app to
-`/Applications` (macOS) or anywhere you like (Windows). `dist/` is ignored by git.
+The result is written to `dist/`. Copy the app to `/Applications` (macOS) or anywhere you
+like (Windows). `dist/` is ignored by git.
 
 Electron itself is a dev dependency and is not copied into the package; only the app code
 and `music-metadata` are bundled (in `app.asar`).
